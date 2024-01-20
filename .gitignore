@@ -1,0 +1,6 @@
+first_runs/the_models_in_use
+*/*/*/*.png
+*/*/*/*.csv
+*/*/*/*.txt
+*/*/*/model_cache
+
