@@ -2181,31 +2181,31 @@ for learning_rate in LEARNING_RATES:
 
 #
 # continuous rehearsal
-#
-# for learning_rate in LEARNING_RATES:
-#     for optimizer_name in OPTIMIZERS:
-#         for conr_repeat in CONR_N_RH_REPEAT:
-#             optimizer = optimizer_factory(
-#                 optimizer_name, learning_rate, decay_rate=LEARNING_RATE_DECAY_RATE
-#             )
-#             model = clone_initial_model(init_model, optimizer)
-#             name = "conr{}_{}_{}".format(conr_repeat, optimizer_name, learning_rate)
-#             METHODS += [
-#                 ContinuousRehearsal(
-#                     name=name,
-#                     model=model,
-#                     optimizer=optimizer,
-#                     loss=LOSS,
-#                     rehearsal_buffer_images=buffer_im,
-#                     rehearsal_buffer_labels=buffer_la,
-#                     rehearsal_repeats=conr_repeat,
-#                     train_every_steps=1,
-#                     scoreboard=scoreboard,
-#                     seed=SEED,
-#                     mix_len=MIX_LEN,
-#                     augment_images=False,
-#                 )
-#             ]
+
+for learning_rate in LEARNING_RATES:
+    for optimizer_name in OPTIMIZERS:
+        for conr_repeat in CONR_N_RH_REPEAT:
+            optimizer = optimizer_factory(
+                optimizer_name, learning_rate, decay_rate=LEARNING_RATE_DECAY_RATE
+            )
+            model = clone_initial_model(init_model, optimizer)
+            name = "conr{}_{}_{}".format(conr_repeat, optimizer_name, learning_rate)
+            METHODS += [
+                ContinuousRehearsal(
+                    name=name,
+                    model=model,
+                    optimizer=optimizer,
+                    loss=LOSS,
+                    rehearsal_buffer_images=buffer_im,
+                    rehearsal_buffer_labels=buffer_la,
+                    rehearsal_repeats=conr_repeat,
+                    train_every_steps=1,
+                    scoreboard=scoreboard,
+                    seed=SEED,
+                    mix_len=MIX_LEN,
+                    augment_images=False,
+                )
+            ]
 
 
 print("Computing pretrained model accuracies on all tasks")
