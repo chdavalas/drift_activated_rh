@@ -47,7 +47,7 @@ print(datetime.now())
 #
 # Configuration
 #
-SEED = 32221102
+SEED = 32221103
 BATCH = 32
 PRE_EPOCHS = 100
 
@@ -2065,7 +2065,7 @@ METHODS = []
 #             )
 #         ]
 #
-# #
+#
 # # two drift detectors
 # for learning_rate in LEARNING_RATES:
 #     for optimizer_name in OPTIMIZERS:
@@ -2126,7 +2126,7 @@ METHODS = []
 #             )
 #         ]
 #
-
+#
 
 # for learning_rate in LEARNING_RATES:
 #     for optimizer_name in OPTIMIZERS:

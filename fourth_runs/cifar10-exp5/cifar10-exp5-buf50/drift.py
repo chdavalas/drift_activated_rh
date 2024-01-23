@@ -47,7 +47,7 @@ print(datetime.now())
 #
 # Configuration
 #
-SEED = 32221102
+SEED = 32221103
 BATCH = 32
 PRE_EPOCHS = 100
 
@@ -75,7 +75,7 @@ ALL_CLASSES = [cl for classes_per_task in TASK_CLASSES for cl in classes_per_tas
 # Number of per-class images for pretraining/buffer
 # if num_per_class=n then the buffer has n*no_of_classes elements with equal parts per class
 PRETRAIN_NUM_PER_CLASS = 1500
-BUFFER_NUM_PER_CLASS   = 500
+BUFFER_NUM_PER_CLASS   = 50
 TEST_BATCH = 10000 // len(TASK_CLASSES)
 CONR_N_RH_REPEAT = [1, 50]  # continuous rehearsal with repeats
 DRIFTA_MAX_RH_REPEAT = [1, 10,25, 50]  # drift activated maximum repeat
@@ -2005,126 +2005,126 @@ print("Creating separate model per method")
 METHODS = []
 
 
-# drift activated
-# for learning_rate in LEARNING_RATES:
-#     for optimizer_name in OPTIMIZERS:
+## drift activated
+#for learning_rate in LEARNING_RATES:
+#    for optimizer_name in OPTIMIZERS:
 #
 #
-#         # plain drift activated
-#         for max_rh_repeat in DRIFTA_MAX_RH_REPEAT:
-#             optimizer = optimizer_factory(
-#                 optimizer_name, learning_rate, decay_rate=LEARNING_RATE_DECAY_RATE
-#             )
-#             model = clone_initial_model(init_model, optimizer)
-#             METHODS += [
-#                 DriftActivatedRehearsal(
-#                     name="drifta{}_{}_{}".format(max_rh_repeat,optimizer_name, learning_rate),
-#                     model=model,
-#                     optimizer=optimizer,
-#                     loss=LOSS,
-#                     rehearsal_buffer_images=buffer_im,
-#                     rehearsal_buffer_labels=buffer_la,
-#                     rehearsal_repeats=max_rh_repeat,
-#                     scoreboard=scoreboard,
-#                     seed=SEED,
-#                     mix_len=MIX_LEN,
-#                     err_thr=ERROR_THR,
-#                     max_notrain=MAX_NOTRAIN,
-#                     use_rehearsal_drift_detector=False,
-#                     augment_images=False,
-#                     dynamic_initial_learning_rate=False,
-#                     dynamic_rehearsal_repeats=False,
-#                 )
-#             ]
+#        # plain drift activated
+#        for max_rh_repeat in DRIFTA_MAX_RH_REPEAT:
+#            optimizer = optimizer_factory(
+#                optimizer_name, learning_rate, decay_rate=LEARNING_RATE_DECAY_RATE
+#            )
+#            model = clone_initial_model(init_model, optimizer)
+#            METHODS += [
+#                DriftActivatedRehearsal(
+#                    name="drifta{}_{}_{}".format(max_rh_repeat,optimizer_name, learning_rate),
+#                    model=model,
+#                    optimizer=optimizer,
+#                    loss=LOSS,
+#                    rehearsal_buffer_images=buffer_im,
+#                    rehearsal_buffer_labels=buffer_la,
+#                    rehearsal_repeats=max_rh_repeat,
+#                    scoreboard=scoreboard,
+#                    seed=SEED,
+#                    mix_len=MIX_LEN,
+#                    err_thr=ERROR_THR,
+#                    max_notrain=MAX_NOTRAIN,
+#                    use_rehearsal_drift_detector=False,
+#                    augment_images=False,
+#                    dynamic_initial_learning_rate=False,
+#                    dynamic_rehearsal_repeats=False,
+#                )
+#            ]
 #
-#         # Drift activated rehearsal until convergence
-#         optimizer = optimizer_factory(
-#             optimizer_name, learning_rate, decay_rate=LEARNING_RATE_DECAY_RATE
-#         )
-#         model = clone_initial_model(init_model, optimizer)
-#         METHODS += [
-#             DriftActivatedRehearsalConverge(
-#                 name="drifta_conv_{}_{}".format(optimizer_name, learning_rate),
-#                 model=model,
-#                 optimizer=optimizer,
-#                 loss=LOSS,
-#                 rehearsal_buffer_images=buffer_im,
-#                 rehearsal_buffer_labels=buffer_la,
-#                 scoreboard=scoreboard,
-#                 seed=SEED,
-#                 mix_len=MIX_LEN,
-#                 err_thr=ERROR_THR,
-#                 max_notrain=MAX_NOTRAIN,
-#                 use_rehearsal_drift_detector=False,
-#                 dynamic_initial_learning_rate=False,
-#                 rehearsal_drift_detector_batch=10,
-#                 augment_images=False,
-#                 alpha_short=0.5,
-#                 alpha_long=0.05,
-#                 eps=0.005,
-#             )
-#         ]
-#
-# #
-# # two drift detectors
-# for learning_rate in LEARNING_RATES:
-#     for optimizer_name in OPTIMIZERS:
-#
-#         # 2drifta
-#         for max_rh_repeat in DRIFTA_MAX_RH_REPEAT:
-#             optimizer = optimizer_factory(
-#                 optimizer_name, learning_rate, decay_rate=LEARNING_RATE_DECAY_RATE
-#             )
-#             model = clone_initial_model(init_model, optimizer)
-#             METHODS += [
-#                 DriftActivatedRehearsal(
-#                     name="2drifta{}_{}_{}".format(max_rh_repeat, optimizer_name, learning_rate),
-#                     model=model,
-#                     optimizer=optimizer,
-#                     loss=LOSS,
-#                     rehearsal_buffer_images=buffer_im,
-#                     rehearsal_buffer_labels=buffer_la,
-#                     rehearsal_repeats=max_rh_repeat,
-#                     scoreboard=scoreboard,
-#                     seed=SEED,
-#                     mix_len=MIX_LEN,
-#                     err_thr=ERROR_THR,
-#                     max_notrain=MAX_NOTRAIN,
-#                     use_rehearsal_drift_detector=True,
-#                     augment_images=False,
-#                     dynamic_initial_learning_rate=False,
-#                     dynamic_rehearsal_repeats=False,
-#                 )
-#             ]
+#        # Drift activated rehearsal until convergence
+#        optimizer = optimizer_factory(
+#            optimizer_name, learning_rate, decay_rate=LEARNING_RATE_DECAY_RATE
+#        )
+#        model = clone_initial_model(init_model, optimizer)
+#        METHODS += [
+#            DriftActivatedRehearsalConverge(
+#                name="drifta_conv_{}_{}".format(optimizer_name, learning_rate),
+#                model=model,
+#                optimizer=optimizer,
+#                loss=LOSS,
+#                rehearsal_buffer_images=buffer_im,
+#                rehearsal_buffer_labels=buffer_la,
+#                scoreboard=scoreboard,
+#                seed=SEED,
+#                mix_len=MIX_LEN,
+#                err_thr=ERROR_THR,
+#                max_notrain=MAX_NOTRAIN,
+#                use_rehearsal_drift_detector=False,
+#                dynamic_initial_learning_rate=False,
+#                rehearsal_drift_detector_batch=10,
+#                augment_images=False,
+#                alpha_short=0.5,
+#                alpha_long=0.05,
+#                eps=0.005,
+#            )
+#        ]
 #
 #
-#         # 2drifta converge
-#         optimizer = optimizer_factory(
-#             optimizer_name, learning_rate, decay_rate=LEARNING_RATE_DECAY_RATE
-#         )
-#         model = clone_initial_model(init_model, optimizer)
-#         METHODS += [
-#             DriftActivatedRehearsalConverge(
-#                 name="2drifta_conv_{}_{}".format(optimizer_name, learning_rate),
-#                 model=model,
-#                 optimizer=optimizer,
-#                 loss=LOSS,
-#                 rehearsal_buffer_images=buffer_im,
-#                 rehearsal_buffer_labels=buffer_la,
-#                 scoreboard=scoreboard,
-#                 seed=SEED,
-#                 mix_len=MIX_LEN,
-#                 err_thr=ERROR_THR,
-#                 max_notrain=MAX_NOTRAIN,
-#                 use_rehearsal_drift_detector=True,
-#                 dynamic_initial_learning_rate=False,
-#                 rehearsal_drift_detector_batch=10,
-#                 augment_images=False,
-#                 alpha_short=0.5,
-#                 alpha_long=0.05,
-#                 eps=0.005,
-#             )
-#         ]
+## two drift detectors
+#for learning_rate in LEARNING_RATES:
+#    for optimizer_name in OPTIMIZERS:
+#
+#        # 2drifta
+#        for max_rh_repeat in DRIFTA_MAX_RH_REPEAT:
+#            optimizer = optimizer_factory(
+#                optimizer_name, learning_rate, decay_rate=LEARNING_RATE_DECAY_RATE
+#            )
+#            model = clone_initial_model(init_model, optimizer)
+#            METHODS += [
+#                DriftActivatedRehearsal(
+#                    name="2drifta{}_{}_{}".format(max_rh_repeat, optimizer_name, learning_rate),
+#                    model=model,
+#                    optimizer=optimizer,
+#                    loss=LOSS,
+#                    rehearsal_buffer_images=buffer_im,
+#                    rehearsal_buffer_labels=buffer_la,
+#                    rehearsal_repeats=max_rh_repeat,
+#                    scoreboard=scoreboard,
+#                    seed=SEED,
+#                    mix_len=MIX_LEN,
+#                    err_thr=ERROR_THR,
+#                    max_notrain=MAX_NOTRAIN,
+#                    use_rehearsal_drift_detector=True,
+#                    augment_images=False,
+#                    dynamic_initial_learning_rate=False,
+#                    dynamic_rehearsal_repeats=False,
+#                )
+#            ]
+#
+#
+#        # 2drifta converge
+#        optimizer = optimizer_factory(
+#            optimizer_name, learning_rate, decay_rate=LEARNING_RATE_DECAY_RATE
+#        )
+#        model = clone_initial_model(init_model, optimizer)
+#        METHODS += [
+#            DriftActivatedRehearsalConverge(
+#                name="2drifta_conv_{}_{}".format(optimizer_name, learning_rate),
+#                model=model,
+#                optimizer=optimizer,
+#                loss=LOSS,
+#                rehearsal_buffer_images=buffer_im,
+#                rehearsal_buffer_labels=buffer_la,
+#                scoreboard=scoreboard,
+#                seed=SEED,
+#                mix_len=MIX_LEN,
+#                err_thr=ERROR_THR,
+#                max_notrain=MAX_NOTRAIN,
+#                use_rehearsal_drift_detector=True,
+#                dynamic_initial_learning_rate=False,
+#                rehearsal_drift_detector_batch=10,
+#                augment_images=False,
+#                alpha_short=0.5,
+#                alpha_long=0.05,
+#                eps=0.005,
+#            )
+#        ]
 #
 
 
@@ -2154,7 +2154,7 @@ METHODS = []
 #                 eps=0.005,
 #             )
 #         ]
-#
+
 
 #
 # Online Training
