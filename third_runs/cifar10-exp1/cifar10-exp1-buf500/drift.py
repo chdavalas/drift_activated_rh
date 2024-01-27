@@ -2128,37 +2128,37 @@ for learning_rate in LEARNING_RATES:
 
 
 
-# for learning_rate in LEARNING_RATES:
-#     for optimizer_name in OPTIMIZERS:
-#
-#         # Continuous rehearsal until convergence
-#         optimizer = optimizer_factory(
-#             optimizer_name, learning_rate, decay_rate=LEARNING_RATE_DECAY_RATE
-#         )
-#         model = clone_initial_model(init_model, optimizer)
-#         METHODS += [
-#             ContinuousRehearsalConverge(
-#                 name="cont_conv_{}_{}".format(optimizer_name, learning_rate),
-#                 model=model,
-#                 optimizer=optimizer,
-#                 loss=LOSS,
-#                 rehearsal_buffer_images=buffer_im,
-#                 rehearsal_buffer_labels=buffer_la,
-#                 train_every_steps=1,
-#                 scoreboard=scoreboard,
-#                 seed=SEED,
-#                 mix_len=MIX_LEN,
-#                 augment_images=False,
-#                 alpha_short=0.5,
-#                 alpha_long=0.05,
-#                 eps=0.005,
-#             )
-#         ]
-#
+for learning_rate in LEARNING_RATES:
+    for optimizer_name in OPTIMIZERS:
 
-#
+        # Continuous rehearsal until convergence
+        optimizer = optimizer_factory(
+            optimizer_name, learning_rate, decay_rate=LEARNING_RATE_DECAY_RATE
+        )
+        model = clone_initial_model(init_model, optimizer)
+        METHODS += [
+            ContinuousRehearsalConverge(
+                name="cont_conv_{}_{}".format(optimizer_name, learning_rate),
+                model=model,
+                optimizer=optimizer,
+                loss=LOSS,
+                rehearsal_buffer_images=buffer_im,
+                rehearsal_buffer_labels=buffer_la,
+                train_every_steps=1,
+                scoreboard=scoreboard,
+                seed=SEED,
+                mix_len=MIX_LEN,
+                augment_images=False,
+                alpha_short=0.5,
+                alpha_long=0.05,
+                eps=0.005,
+            )
+        ]
+
+
+
 # Online Training
-#
+
 for learning_rate in LEARNING_RATES:
     for optimizer_name in OPTIMIZERS:
         optimizer = optimizer_factory(
