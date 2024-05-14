@@ -1,6 +1,6 @@
 # drift_activated_rh
 
-Extended experiments for the computationally_efficient_rehearsal_code
+Extended experiments for the computationally_efficient_rehearsal code
 
 Please cite before use :) :
 
